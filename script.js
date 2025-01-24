@@ -18,9 +18,15 @@ function addBookToLibrary(title, author, pages, read) {
 
 function displayBooks() {
     let body = document.querySelector(".main-body");
-    body.innerHTML = ''
+    
+    body.innerHTML = '' // Empty the main-body each time the function is called before populating it anew
+
+    // Iterate through Library and create tabs for each book
+    
     for (let book of Library) {
         
+        // Create divs and elements in them
+
         let tab = document.createElement('div');
         tab.className = 'tab';
         body.append(tab);
@@ -37,9 +43,22 @@ function displayBooks() {
         let p3 = document.createElement('p');
         p3.innerText = `read?: ${book.read}`;
         
-        tab.append(h3, p1, p2, p3);
+        let delbtn = document.createElement('button');
+        delbtn.className = 'delbtn';
+        delbtn.innerText = 'delete book';
+        delbtn.setAttribute("id", Library.indexOf(book));
+        delbtn.onclick = function() {
+            deleteBook(this.id);
+        };
+
+        tab.append(h3, p1, p2, p3, delbtn);
     };
 };
+
+function deleteBook(index) {
+    Library.splice(index, 1);
+    displayBooks();
+}
 
 const form = document.querySelector('.form');
 
@@ -55,3 +74,4 @@ form.addEventListener('submit', (event) => {
     
     displayBooks();
 });
+
