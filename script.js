@@ -41,7 +41,7 @@ function displayBooks() {
         p2.innerText = `Page count ${book.pages}`;
         
         let p3 = document.createElement('p');
-        p3.innerText = `read?: ${book.read}`;
+        p3.innerText = `read?: ${book.read ? "Yes" : "No"}`;
         
         let delbtn = document.createElement('button');
         delbtn.className = 'delbtn';
@@ -51,7 +51,22 @@ function displayBooks() {
             deleteBook(this.id);
         };
 
-        tab.append(h3, p1, p2, p3, delbtn);
+        let readbtn = document.createElement('button');
+        readbtn.className = 'readbtn';
+        readbtn.innerText = `I've read it`;
+        readbtn.setAttribute("id", Library.indexOf(book));
+        readbtn.onclick = function() {
+            console.log(book)
+
+            if (!book.read) {
+                book.read = true
+            } else {
+                book.read = false
+            };
+            console.log(book)
+        }
+
+        tab.append(h3, p1, p2, p3, readbtn, delbtn);
     };
 };
 
@@ -68,7 +83,7 @@ form.addEventListener('submit', (event) => {
     const atitle = document.getElementById('title').value;
     const aauthor = document.getElementById('author').value;
     const apages = document.getElementById('pagecount').value;
-    const aread = document.getElementById('read').checked ? "Yes" : "No";
+    const aread = document.getElementById('read').checked ? true : false;
 
     addBookToLibrary(atitle, aauthor, apages, aread);
     
