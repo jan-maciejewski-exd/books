@@ -1,11 +1,13 @@
 const Library = [];
 
-function Book(title, author, pages, read) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.read = read;
-    this.info = function() {
+class Book {
+    constructor(title, author, pages, read) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+    }
+        info() {
         return (`${this.title} by ${this.author}, ${this.pages} pages, ${this.read}.`);
     }
 };
@@ -56,14 +58,12 @@ function displayBooks() {
         readbtn.innerText = `I've read it`;
         readbtn.setAttribute("id", Library.indexOf(book));
         readbtn.onclick = function() {
-            console.log(book)
-
             if (!book.read) {
                 book.read = true
             } else {
                 book.read = false
             };
-            console.log(book)
+            p3.innerText = `read?: ${book.read ? "Yes" : "No"}`;
         }
 
         tab.append(h3, p1, p2, p3, readbtn, delbtn);
@@ -73,7 +73,7 @@ function displayBooks() {
 function deleteBook(index) {
     Library.splice(index, 1);
     displayBooks();
-}
+};
 
 const form = document.querySelector('.form');
 
